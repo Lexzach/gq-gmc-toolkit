@@ -23,16 +23,14 @@ time.sleep(61) # 61 seconds to allow geiger counter to boot
 
 try:
     while True:
-        # Request CPM
         ser.write(b"<GETCPM>>")
 
         count = read_2byte_value(ser)
         timestamp = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         csvwriter.writerow([timestamp, count])
-        print(f'{timestamp}: {count}') # Optional: print the timestamp and count
+        print(f'{timestamp}: {count}')
         time.sleep(10)
 
 except KeyboardInterrupt:
-    # Close the resources when Ctrl+C is pressed
     csvfile.close()
     ser.close()
